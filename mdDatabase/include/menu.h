@@ -10,7 +10,7 @@ class Menu
 {
 private:
 	// Map of symptoms, technically constant. Edited by developer.
-	std::map<std::string, bool> m_cSymptomList;
+	std::map<std::string, bool> m_cSymptomList;//
 
 	// Map of current options, changes depending on menu state
 	std::map<std::string, bool> m_optionsList;
