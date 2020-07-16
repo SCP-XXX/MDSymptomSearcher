@@ -178,7 +178,7 @@ void Menu::resetOptions()
 		// Changes options to default
 		m_optionsList = m_cSymptomList;
 	}
-}
+}//
 
 void Menu::selectOption()
 {
@@ -187,7 +187,7 @@ void Menu::selectOption()
 		resetOptions();
 	}
 
-	v_sEditableSymptomList[iValidInput] = "[" + v_sEditableSymptomList[iValidInput] + "]";
+	//v_sEditableSymptomList[iValidInput] = "[" + v_sEditableSymptomList[iValidInput] + "]";
 
 }
 
