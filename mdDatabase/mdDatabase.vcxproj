@@ -69,7 +69,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\joseph\source\repos\mdDatabase\mdDatabase\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -115,6 +117,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\asthma.h" />
+    <ClInclude Include="include\disease.h" />
+    <ClInclude Include="include\ebola.h" />
+    <ClInclude Include="include\headache.h" />
+    <ClInclude Include="include\menu.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cpp\asthma.cpp" />
+    <ClCompile Include="cpp\disease.cpp" />
+    <ClCompile Include="cpp\ebola.cpp" />
+    <ClCompile Include="cpp\headache.cpp" />
+    <ClCompile Include="cpp\menu.cpp" />
+    <ClCompile Include="cpp\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

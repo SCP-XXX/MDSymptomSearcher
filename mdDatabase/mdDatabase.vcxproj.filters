@@ -13,5 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Diseases">
+      <UniqueIdentifier>{df373927-3726-437c-bc07-93ee75f1bd78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diseases">
+      <UniqueIdentifier>{6e5891a1-5f93-42f7-9c7b-027cfc00cc52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\disease.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\headache.h">
+      <Filter>Header Files\Diseases</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ebola.h">
+      <Filter>Header Files\Diseases</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asthma.h">
+      <Filter>Header Files\Diseases</Filter>
+    </ClInclude>
+    <ClInclude Include="include\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cpp\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\disease.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\headache.cpp">
+      <Filter>Source Files\Diseases</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\ebola.cpp">
+      <Filter>Source Files\Diseases</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\asthma.cpp">
+      <Filter>Source Files\Diseases</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
