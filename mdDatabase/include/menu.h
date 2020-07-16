@@ -13,7 +13,7 @@ private:
 	std::map<std::string, bool> m_cSymptomList;
 
 	// Map of current options, changes depending on menu state
-	std::map<std::string, bool> m_optionsList;//
+	std::map<std::string, bool> m_optionsList;
 
 	// Map of menu titles for different states.
 	std::map<int, std::string> m_cMenuTitles;
