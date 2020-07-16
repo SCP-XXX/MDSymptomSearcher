@@ -10,16 +10,24 @@ class Menu
 {
 private:
 	// Map of symptoms, technically constant. Edited by developer.
-	std::map<std::string, bool> m_cSymptomList;//
+	std::map<int, std::string> m_cSymptomList;
 
-	// Map of current options, changes depending on menu state
-	std::map<std::string, bool> m_optionsList;
+	// Map of current options, changes visually if something is selected
+	std::map<int, std::string> m_optionsList;
+
+	// Map of selected options
+	std::map<int, std::string> m_selectedOptionsList;
 
 	// Map of menu titles for different states.
 	std::map<int, std::string> m_cMenuTitles;
 
+	// map of 1025 page number + disease name
+	// seperate disease classes, compare selected symptom map with disease's individual symptom map
+
 	// Enum for state of menu.
-	const enum eMenuStates {SymptomSelectDefault = 1, SymptomSelectSelected = 2, SymptomSelectInvalid = 3, SymptomSelectReset = 4};
+	const enum eMenuStates
+	{SymptomSelectDefault = 1, SymptomSelectSelected = 2, SymptomSelectInvalid = 3, SymptomSelectReset = 4,
+	DiseaseSelectDefault = 5, DiseaseSelectSelected = 6, DiseaseSelectInvalid = 7, DiseaseSelectReset = 8};
 
 	// Current menu state.
 	int iMenuState;
@@ -45,7 +53,7 @@ public:
 	void displayOptions();
 	void resetOptions();
 	bool processInput(std::string sInput);
-	void selectOption();
+	void selectOption(int iInput);
 
 	/////////////// spaghetti below
 
