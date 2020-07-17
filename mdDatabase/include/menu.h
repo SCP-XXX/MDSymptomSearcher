@@ -12,6 +12,9 @@ private:
 	// Map of symptoms, technically constant. Edited by developer.
 	std::map<int, std::string> m_cSymptomList;
 
+	// Map of diseases, technically constant. Edited by developer.
+	std::map<int, Disease> m_cDiseaseList;
+
 	// Map of current options, changes visually if something is selected
 	std::map<int, std::string> m_optionsList;
 

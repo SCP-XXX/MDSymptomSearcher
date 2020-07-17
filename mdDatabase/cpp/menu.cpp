@@ -17,8 +17,8 @@ Menu::Menu()
 	m_cSymptomList[5] = "Headache";
 	m_cSymptomList[6] = "Bleeding";
 	m_cSymptomList[7] = "Health loss";
-	m_cSymptomList[8] = "Permanent nausea";
-	m_cSymptomList[9] = "Temporary neausea and Vomiting";
+	m_cSymptomList[8] = "Long-lasting nausea";
+	m_cSymptomList[9] = "Temporary nausea and Vomiting";
 	m_cSymptomList[10] = "Breathlessness";
 	m_cSymptomList[11] = "Shivering";
 	m_cSymptomList[12] = "Stomach ache";
@@ -34,6 +34,10 @@ Menu::Menu()
 	m_cSymptomList[22] = "Hair loss";
 	m_cSymptomList[23] = "Instantaneous death";
 
+	// This is where you would add new diseases.
+	//m_cDiseasesList.insert(std::make_pair(1, new Disease));
+	//m_cDiseaseList[1] = Disease oShivering;
+
 	// Default option list is symptom selector
 	m_optionsList = m_cSymptomList;
 
@@ -42,10 +46,11 @@ Menu::Menu()
 	m_cMenuTitles[SymptomSelectSelected] = "Symptom selected. Input a number to choose a symptom, input 'done' once you have listed all of them, or input 'reset' to deselect all symptoms.";
 	m_cMenuTitles[SymptomSelectInvalid] = "Invalid input. Input a number to choose a symptom, input 'done' once you have listed all of them, or input 'reset' to deselect all symptoms.";
 	m_cMenuTitles[SymptomSelectReset] = "Symptoms deselected. Input a number to choose a symptom, input 'done' once you have listed all of them, or input 'reset' to deselect all symptoms.";
-	m_cMenuTitles[SymptomSelectDefault] = "Input a number to choose a disease with the symptoms you listed. Input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
-	m_cMenuTitles[SymptomSelectSelected] = "Disease selected. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
-	m_cMenuTitles[SymptomSelectInvalid] = "Invalid input. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
-	m_cMenuTitles[SymptomSelectReset] = "Diseases deselected. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
+
+	m_cMenuTitles[DiseaseSelectDefault] = "Input a number to choose a disease with the symptoms you listed. Input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
+	m_cMenuTitles[DiseaseSelectSelected] = "Disease selected. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
+	m_cMenuTitles[DiseaseSelectInvalid] = "Invalid input. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
+	m_cMenuTitles[DiseaseSelectReset] = "Diseases deselected. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
 
 	///////////// spaghetti below
 
@@ -130,7 +135,7 @@ bool Menu::processInput(std::string sInput)
 		// Checks if input wants to confirm selection
 		if (sInput == "done")
 		{
-			iMenuState = SymptomSelectDefault;
+			iMenuState = DiseaseSelectDefault;
 
 			// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING
 			resetOptions();
@@ -259,6 +264,13 @@ void Menu::resetOptions()
 	{
 		// Changes options to default
 		m_optionsList = m_cSymptomList;
+	}
+
+	// For resetting disease selection menu
+	if ((iMenuState >= DiseaseSelectDefault) && (iMenuState <= DiseaseSelectReset))
+	{
+		// Changes options to default
+		m_optionsList = m_cDiseaseList;
 	}
 }
 
