@@ -3,12 +3,6 @@
 // Constructor
 Menu::Menu()
 {
-	// Sets to default state.
-	iMenuState = SymptomSelectDefault;
-
-	// Allow multi-select for default
-	bMultiSelect = true;
-
 	// This is where you would add new symptoms. Kinda spaghetti but I'm too lazy to improve this.
 	m_cSymptomList[1] = "Contageous";
 	m_cSymptomList[2] = "Coughing";
@@ -34,6 +28,30 @@ Menu::Menu()
 	m_cSymptomList[22] = "Hair loss";
 	m_cSymptomList[23] = "Instantaneous death";
 
+	// This is where you would add new diseases (int is the 1025 page number). More spaghetti yay, im too noob to be bothered to improve this :)
+	// Shivering
+	/*m_SymptomMap2[11] = "Shivering";
+	Disease oShivering(m_SymptomMap1);
+	m_cDiseaseList[1] = oShivering;
+
+	// Injury
+	m_SymptomMap2[3] = "Inhibited movement";
+	m_SymptomMap1[6] = "Bleeding";
+	m_SymptomMap1[14] = "Blurry vision";
+	Disease oInjury;
+	m_cDiseaseList[2] = oInjury;
+
+	// Injury
+	m_SymptomMap3[8] = "Long-lasting nausea";
+	Disease oNausea;
+	m_cDiseaseList[3] = oNausea;*/
+
+	viShiveringSymptoms = {11};
+	m_cDiseaseList.insert(std::make_pair(1, new Disease(m_cSymptomList, "Shivering", viShiveringSymptoms)));
+
+	viInjurySymptoms = {3, 6, 14};
+	m_cDiseaseList.insert(std::make_pair(2, new Disease(m_cSymptomList, "Injury", viInjurySymptoms)));
+
 	// This is where you would add new diseases.
 	//m_cDiseasesList.insert(std::make_pair(1, new Disease));
 	//m_cDiseaseList[1] = Disease oShivering;
@@ -52,43 +70,13 @@ Menu::Menu()
 	m_cMenuTitles[DiseaseSelectInvalid] = "Invalid input. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
 	m_cMenuTitles[DiseaseSelectReset] = "Diseases deselected. Input a number to choose an option, input 'done' once you have listed all of them, or input 'reset' to deselect all options. Input 'back' to return.";
 
-	///////////// spaghetti below
+	m_cMenuTitles[DisplayInfo] = "Disease info displayed. Input 'back' to return.";
 
-	/*iLayer = 1;
+	// Sets to default state.
+	iMenuState = SymptomSelectDefault;
 
-	sAskSymptomsTitle = "Input a number to choose a symptom, input 'done' once you have listed all of them, or input 'reset' to deselect all symptoms.";
-
-	v_sSymptomList.push_back("Contageous");
-	v_sSymptomList.push_back("Coughing");
-	v_sSymptomList.push_back("Inhibited movement");
-	v_sSymptomList.push_back("Headache");
-	v_sSymptomList.push_back("Bleeding");
-	v_sSymptomList.push_back("Health loss");
-	v_sSymptomList.push_back("Permanant nausea");
-	v_sSymptomList.push_back("Temporary nausea and vomiting");
-	v_sSymptomList.push_back("Breathlessness");
-	v_sSymptomList.push_back("Shivering");
-	v_sSymptomList.push_back("Stomach ache");
-	v_sSymptomList.push_back("Rash");
-	v_sSymptomList.push_back("Stomach ache");
-	v_sSymptomList.push_back("Blurry vision");
-	v_sSymptomList.push_back("Sweating");
-	v_sSymptomList.push_back("Audible heartbeat");
-	v_sSymptomList.push_back("Inverted controls");
-	v_sSymptomList.push_back("Shaking head");
-	v_sSymptomList.push_back("Lime green skin");
-	v_sSymptomList.push_back("Bleached white skin");
-	v_sSymptomList.push_back("Slashing sound upon infection");
-	v_sSymptomList.push_back("Hair loss");
-	v_sSymptomList.push_back("Instantaneous death");
-
-	v_sEditableSymptomList = v_sSymptomList;
-
-	for (int i = 0; i < v_sEditableSymptomList.size(); i++)
-	{
-		v_bSelectedSymptoms.push_back(false);
-	}*/
-
+	// Allow multi-select for default
+	bMultiSelect = true;
 }
 
 void Menu::displayTitle()
@@ -100,28 +88,29 @@ void Menu::displayTitle()
 
 void Menu::displayOptions()
 {
-	for (int i = 1; i <= m_optionsList.size(); i++)
+	if (iMenuState != DisplayInfo)
 	{
-		// If selected, give visual representation of selection
-		auto it = m_selectedOptionsList.find(i);
-		if (it != m_selectedOptionsList.end())
+		for (int i = 1; i <= m_optionsList.size(); i++)
 		{
-			std::cout << i << ": " << "[" << m_optionsList.find(i)->second << "]" << std::endl;
-		}
+			// If selected, give visual representation of selection
+			auto it = m_selectedOptionsList.find(i);
+			if (it != m_selectedOptionsList.end())
+			{
+				std::cout << i << ": " << "[" << m_optionsList.find(i)->second << "]" << std::endl;
+			}
 
-		else
-		{
-			std::cout << i << ": " << m_optionsList.find(i)->second << std::endl;
+			else
+			{
+				std::cout << i << ": " << m_optionsList.find(i)->second << std::endl;
+			}
 		}
 	}
 
-	/*int iCount = 0;
-
-	for (auto it = m_optionsList.begin(); it != m_optionsList.end(); ++it)
+	else
 	{
-		iCount++;
-		std::cout << (iCount) << ": " << it->first << std::endl;
-	}*/
+		//for (int i = 0)
+		std::cout << "Disease info goes here";
+	}
 
 	std::cout << std::endl;
 }
@@ -131,6 +120,8 @@ bool Menu::processInput(std::string sInput)
 {
 	if ((iMenuState >= SymptomSelectDefault) && (iMenuState <= SymptomSelectReset))
 	{
+		// Symptom list should allow multi select
+		bMultiSelect = true;
 
 		// Checks if input wants to confirm selection
 		if (sInput == "done")
@@ -195,13 +186,13 @@ bool Menu::processInput(std::string sInput)
 
 	else if ((iMenuState >= DiseaseSelectDefault) && (iMenuState <= DiseaseSelectReset))
 	{
+		// Disease list shouldn't allow multi select
+		bMultiSelect = false;
+
 		// Checks if input wants to confirm selection
 		if (sInput == "done")
 		{
-			iMenuState = DiseaseSelectDefault;
-
-			// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING
-			resetOptions();
+			iMenuState = DisplayInfo;
 
 			// Valid input
 			return true;
@@ -211,6 +202,18 @@ bool Menu::processInput(std::string sInput)
 		else if (sInput == "reset")
 		{
 			iMenuState = DiseaseSelectReset;
+
+			// Resets to default
+			resetOptions();
+
+			// Valid input
+			return true;
+		}
+
+		// Checks if input intends to return to symptoms
+		else if (sInput == "back")
+		{
+			iMenuState = SymptomSelectDefault;
 
 			// Resets to default
 			resetOptions();
@@ -255,6 +258,18 @@ bool Menu::processInput(std::string sInput)
 			}
 		}
 	}
+
+	else if (iMenuState == DisplayInfo)
+	{
+		// Checks if input intends to return to disease list
+		if (sInput == "back")
+		{
+		iMenuState = DiseaseSelectDefault;
+
+		// Valid input
+		return true;
+		}
+	}
 }
 
 void Menu::resetOptions()
@@ -264,13 +279,21 @@ void Menu::resetOptions()
 	{
 		// Changes options to default
 		m_optionsList = m_cSymptomList;
+		m_selectedOptionsList = {};
 	}
 
 	// For resetting disease selection menu
 	if ((iMenuState >= DiseaseSelectDefault) && (iMenuState <= DiseaseSelectReset))
 	{
+		m_optionsList = {};
+
 		// Changes options to default
-		m_optionsList = m_cDiseaseList;
+		for (int i = 1; i <= m_cDiseaseList.size(); i++)
+		{
+			m_optionsList[i] = m_cDiseaseList.find(i)->second->getName();
+		}
+
+		m_selectedOptionsList = {};
 	}
 }
 
@@ -284,17 +307,3 @@ void Menu::selectOption(int iInput)
 	// Adds selected options to a map
 	m_selectedOptionsList.insert(std::pair<int, std::string>(iInput, m_optionsList.find(iInput)->second));
 }
-
-/*
-
-int Menu::getLayer()
-{
-	return iLayer;
-}
-
-void Menu::displayMatchingDiseases()
-{
-
-}
-
-*/
