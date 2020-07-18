@@ -46,11 +46,14 @@ Menu::Menu()
 	Disease oNausea;
 	m_cDiseaseList[3] = oNausea;*/
 
-	viShiveringSymptoms = {11};
+	viShiveringSymptoms = { 11 };
 	m_cDiseaseList.insert(std::make_pair(1, new Disease(m_cSymptomList, "Shivering", viShiveringSymptoms)));
 
-	viInjurySymptoms = {3, 6, 14};
+	viInjurySymptoms = { 3, 6, 14 };
 	m_cDiseaseList.insert(std::make_pair(2, new Disease(m_cSymptomList, "Injury", viInjurySymptoms)));
+
+	viNauseaSymptoms = { 8 };
+	m_cDiseaseList.insert(std::make_pair(3, new Disease(m_cSymptomList, "Nausea", viNauseaSymptoms)));
 
 	// This is where you would add new diseases.
 	//m_cDiseasesList.insert(std::make_pair(1, new Disease));
@@ -90,26 +93,40 @@ void Menu::displayOptions()
 {
 	if (iMenuState != DisplayInfo)
 	{
+		system("pause");
+		for (int i = 1; i <= m_optionsList.size(); i++)
+		{
+			system("pause");
+			// If selected, give visual representation of selection
+			auto it = m_selectedOptionsList.find(i);
+			if (it != m_selectedOptionsList.end())
+			{
+				system("pause");
+				std::cout << i << ": " << "[" << m_optionsList.find(i)->second << "]" << std::endl;
+			}
+
+			else
+			{
+				system("pause");
+				std::cout << i << ": " << m_optionsList.find(i)->second << std::endl;
+			}
+		}
+		system("pause");
+	}
+
+	else
+	{
 		for (int i = 1; i <= m_optionsList.size(); i++)
 		{
 			// If selected, give visual representation of selection
 			auto it = m_selectedOptionsList.find(i);
 			if (it != m_selectedOptionsList.end())
 			{
-				std::cout << i << ": " << "[" << m_optionsList.find(i)->second << "]" << std::endl;
-			}
-
-			else
-			{
-				std::cout << i << ": " << m_optionsList.find(i)->second << std::endl;
+				
+				std::cout << m_cDiseaseList.find(i)->second->getName() << std::endl << std::endl;
+				m_cDiseaseList.find(i)->second->printSymptoms();
 			}
 		}
-	}
-
-	else
-	{
-		//for (int i = 0)
-		std::cout << "Disease info goes here";
 	}
 
 	std::cout << std::endl;
@@ -128,7 +145,8 @@ bool Menu::processInput(std::string sInput)
 		{
 			iMenuState = DiseaseSelectDefault;
 
-			// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING// NEEDS CHANGING
+			m_selectedSymptomsList = m_selectedOptionsList;
+
 			resetOptions();
 
 			// Valid input
@@ -287,12 +305,19 @@ void Menu::resetOptions()
 	{
 		m_optionsList = {};
 
+		/*for (auto elem : m_selectedSymptomsList)
+		{
+			std::cout << elem.first << " " << elem.second << "\n";
+		}*/
+
 		// Changes options to default
 		for (int i = 1; i <= m_cDiseaseList.size(); i++)
 		{
-			m_optionsList[i] = m_cDiseaseList.find(i)->second->getName();
+			if (m_cDiseaseList.find(i)->second->compareSymptoms(m_selectedSymptomsList))
+			{
+				m_optionsList[i] = m_cDiseaseList.find(i)->second->getName();
+			}
 		}
-
 		m_selectedOptionsList = {};
 	}
 }

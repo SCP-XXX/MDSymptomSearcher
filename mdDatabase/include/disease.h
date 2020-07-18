@@ -18,10 +18,11 @@ private:
 public:
 	Disease();
 	Disease(std::map<int, std::string> m_cGlobalSymptoms, std::string sDiseaseName, std::vector<int> viDiseaseSymptoms);
-
 	std::string getName();
-
+	//std::map<int, std::string> getSymptoms();
 	void printSymptoms();
+	std::map<int, std::string> getSymptoms();
+	bool compareSymptoms(std::map<int, std::string> m_selectedSymptoms);
 	/*std::string getSymptoms();
 	std::string getCauses();
 	std::string getCures();*/
